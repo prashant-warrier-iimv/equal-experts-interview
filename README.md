@@ -6,6 +6,8 @@
 
 3. Optionally, produce a github Personal access token.
 
+4. Set the environment variable `GITHUB_API_TOKEN` with the Key optionally produced from Step 3.
+
 ## Setup
 
 1. Execute `docker compose build` to build and tag the image.
