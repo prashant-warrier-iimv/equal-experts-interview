@@ -1,43 +1,32 @@
-## :warning: Please read these instructions carefully and entirely first
-* Clone this repository to your local machine.
-* Use your IDE of choice to complete the assignment.
-* When you have completed the assignment, you need to  push your code to this repository and [mark the assignment as completed by clicking here](https://app.snapcode.review/submission_links/c8967cc2-43bf-40cd-af35-15c309474ab6).
-* Once you mark it as completed, your access to this repository will be revoked. Please make sure that you have completed the assignment and pushed all code from your local machine to this repository before you click the link.
+## Instructions
 
-## Operability Take-Home Exercise
+1. Clone this repository
 
-Welcome to the start of our recruitment process for Operability Engineers. It was great to speak to you regarding an opportunity to join the Equal Experts network!
+2. Ensure that you have `docker`, and `docker-compose` available on your computer.
 
-Please write code to deliver a solution to the problems outlined below.
+3. Optionally, produce a github Personal access token.
 
-We appreciate that your time is valuable and do not expect this exercise to **take more than 90 minutes**. If you think this exercise will take longer than that, I **strongly** encourage you to please get in touch to ask any clarifying questions.
+## Setup
 
-### Submission guidelines
-**Do**
-- Provide a README file in text or markdown format that documents a concise way to set up and run the provided solution.
-- Take the time to read any applicable API or service docs, it may save you significant effort.
-- Make your solution simple and clear. We aren't looking for overly complex ways to solve the problem since in our experience, simple and clear solutions to problems are generally the most maintainable and extensible solutions.
+1. Execute `docker compose build` to build and tag the image.
 
-**Don't**
+2. Execute `docker compose up -d --remove-orphans` to start up the stack.
 
-Expect the reviewer to dedicate a machine to review the test by:
+3. Verify that the containers for the application stack are up:
 
-- Installing software globally that may conflict with system software
-- Requiring changes to system-wide configurations
-- Providing overly complex solutions that need to spin up a ton of unneeded supporting dependencies. We aspire to keep our dev experiences as simple as possible (but no simpler)!
-- Include identifying information in your submission. We are endeavouring to make our review process anonymous to reduce bias.
+```
+docker ps
+CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS                   PORTS                                         NAMES
+a352d72e19f1   ghgist-scraper-http-server   "uvicorn app:app --h…"   8 seconds ago   Up 2 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   equal-experts-fashionable-decisive-dignified-animal-11faa3add24c-http-server-1
+ee065e8513a8   redis:7-alpine               "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds (healthy)   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp   equal-experts-fashionable-decisive-dignified-animal-11faa3add24c-redis-1
+```
 
-### Exercise
-If you have any questions on the below exercise, please do get in touch and we’ll answer as soon as possible.
+4. Make a request, using curl or any other tool like so:
+```
+curl localhost:8080/torvalds
+```
 
-#### Build an API, test it, and package it into a container
-- Build a simple HTTP web server API in any general-purpose programming language[^1] that interacts with the GitHub API and responds to requests on `/<USER>` with a list of the user’s publicly available Gists[^2].
-- Create an automated test to validate that your web server API works. An example user to use as test data is `octocat`.
-- Package the web server API into a docker container that listens for requests on port `8080`. You do not need to publish the resulting container image in any container registry, but we are expecting the Dockerfile in the submission.
-- The solution may optionally provide other functionality (e.g. pagination, caching) but the above **must** be implemented.
-
-Best of luck,  
-Equal Experts
-__________________________________________
-[^1]: For example Go, Python or Ruby but not Bash or Powershell.  
-[^2]: https://docs.github.com/en/rest/gists/gists?apiVersion=2022-11-28
+Expect a response like so:
+```
+[{"url":"https://api.github.com/gists/6faadce34c56d53b2d5352da0c3cd093","forks_url":"https://api.github.com/gists/6faadce34c56d53b2d5352da0c3cd093/forks","commits_url":"https://api.github.com/gists/6faadce34c56d53b2d5352da0c3cd093/commits","id":"6faadce34c56d53b2d5352da0c3cd093","node_id":"G_kwDOAA-gGdoAIDZmYWFkY2UzNGM1NmQ1M2IyZDUzNTJkYTBjM2NkMDkz","git_pull_url":"https://gist.github.com/6faadce34c56d53b2d5352da0c3cd093.git","git_push_url":"https://gist.github.com/6faadce34c56d53b2d5352da0c3cd093.git","html_url":"https://gist.github.com/torvalds/6faadce34c56d53b2d5352da0c3cd093","files":{"gistfile1.txt":{"filename":"gistfile1.txt","type":"text/plain","language":"Text","raw_url":"https://gist.githubusercontent.com/torvalds/6faadce34c56d53b2d5352da0c3cd093/raw/79c51a5c1785993f4583547bb55306f0b2e142cd/gistfile1.txt","size":312}},"public":true,"created_at":"2025-05-22T19:56:29Z","updated_at":"2026-09-18T10:48:13Z","description":"Not involved with any fishy crypto fishy business","comments":94,"user":null,"comments_enabled":true,"comments_url":"https://api.github.com/gists/6faadce34c56d53b2d5352da0c3cd093/comments","owner":{"login":"torvalds","id":1024025,"node_id":"MDQ6VXNlcjEwMjQwMjU=","avatar_url":"https://avatars.githubusercontent.com/u/1024025?v=4","gravatar_id":"","url":"https://api.github.com/users/torvalds","html_url":"https://github.com/torvalds","followers_url":"https://api.github.com/users/torvalds/followers","following_url":"https://api.github.com/users/torvalds/following{/other_user}","gists_url":"https://api.github.com/users/torvalds/gists{/gist_id}","starred_url":"https://api.github.com/users/torvalds/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/torvalds/subscriptions","organizations_url":"https://api.github.com/users/torvalds/orgs","repos_url":"https://api.github.com/users/torvalds/repos","events_url":"https://api.github.com/users/torvalds/events{/privacy}","received_events_url":"https://api.github.com/users/torvalds/received_events","type":"User","user_view_type":"public","site_admin":false},"truncated":false}]% 
+```
