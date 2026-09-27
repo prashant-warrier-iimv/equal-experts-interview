@@ -6,6 +6,7 @@ def _redis_up() -> bool:
     import socket
     try:
         host = os.getenv("CACHE_HOST")
+        os.environ["CACHE_PORT"] = "6379"
         port = int(os.getenv("CACHE_PORT", "6379"))
         timeout = 30
         with socket.create_connection((host, port), timeout=timeout):

@@ -1,0 +1,32 @@
+# VCS / IDE
+.git
+.gitignore
+.vscode
+.idea
+
+# Local Python environments and caches
+venv*/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Tests and docs (not needed in the runtime image)
+tests/
+README.md
+
+# Docker / compose (not needed in build context)
+docker-compose.yml
+.dockerignore
+
+# Env and secrets
+.env
+.env.*
+*.pem
+*.key
