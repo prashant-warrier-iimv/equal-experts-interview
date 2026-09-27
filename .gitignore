@@ -431,4 +431,6 @@ FodyWeavers.xsd
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
 
-.venv*
+*venv*
+*pytest_cache*
+*vscode*
