@@ -1,0 +1,13 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - solution
+
+jobs:
+    build-and-push-container-image:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Workflow stub
+              run: echo "This is a workflow stub"
